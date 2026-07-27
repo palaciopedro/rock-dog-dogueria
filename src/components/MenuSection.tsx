@@ -8,8 +8,8 @@ import type { MenuItem } from "@/types/menu";
 
 const categories: { key: MenuItem["categoria"] | "todos"; label: string }[] = [
   { key: "todos", label: "Todos" },
-  { key: "frango", label: "Frango" },
-  { key: "carne", label: "Carne" },
+  { key: "simples", label: "Simples" },
+  { key: "duplo", label: "Duplo" },
   { key: "vegano", label: "Vegano" },
 ];
 
@@ -45,9 +45,11 @@ export default function MenuSection() {
               <div className="relative aspect-[4/3] bg-rd-black/5">
                 {/* TODO: substituir pelo asset final do lanche */}
                 <Image src={item.image} alt={item.nome} fill className="object-cover" />
-                <span className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-rd-yellow font-display text-sm text-rd-black">
-                  {String(item.numero).padStart(2, "0")}
-                </span>
+                {item.destaque && (
+                  <span className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-rd-yellow px-3 py-1 font-body text-xs font-bold uppercase text-rd-black">
+                    🔥 Mais pedido
+                  </span>
+                )}
               </div>
               <div className="flex flex-1 flex-col p-5">
                 <h3 className="font-display text-xl uppercase">{item.nome}</h3>

@@ -2,7 +2,8 @@ export interface MenuItem {
   id: string;
   numero: number;
   nome: string;
-  categoria: "frango" | "carne" | "vegano";
+  categoria: "simples" | "duplo" | "vegano";
+  destaque?: boolean;
   ingredientes: string[];
   prensado: boolean;
   price: number;
