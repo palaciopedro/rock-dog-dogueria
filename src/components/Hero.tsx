@@ -12,7 +12,7 @@ export default function Hero() {
       {/* Brilho quente único e sutil, atrás do lanche */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_800px_600px_at_72%_50%,rgba(196,140,50,0.22),transparent_70%)]" />
 
-      <div className="relative mx-auto grid min-h-[calc(100vh-64px)] max-w-[1600px] grid-cols-1 content-center items-center pt-16 sm:min-h-[calc(100vh-88px)] sm:pt-[88px] lg:content-normal lg:grid-cols-[1fr_1.15fr]">
+      <div className="relative mx-auto grid min-h-screen max-w-[1600px] grid-cols-1 content-center items-center pt-16 sm:pt-[88px] lg:content-normal lg:grid-cols-[1fr_1.15fr]">
         {/* ESQUERDA */}
         <div className="relative z-20 flex flex-col justify-center gap-5 px-4 py-8 sm:gap-6 sm:px-6 sm:py-10 lg:px-20">
           {/* Selo premium, discreto */}

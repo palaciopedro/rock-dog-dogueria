@@ -19,7 +19,7 @@ export default function MenuSection() {
   const filtered = filter === "todos" ? menu : menu.filter((i) => i.categoria === filter);
 
   return (
-    <section id="cardapio" className="bg-rd-white py-20 text-rd-black">
+    <section id="cardapio" className="scroll-mt-20 bg-rd-white py-20 text-rd-black sm:scroll-mt-24">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         <h2 className="font-display text-4xl uppercase text-rd-black sm:text-5xl">Cardápio</h2>
 

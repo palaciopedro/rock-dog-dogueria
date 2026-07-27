@@ -66,7 +66,7 @@ function ReviewCard() {
 
 export default function ContactSection() {
   return (
-    <section id="contato" className="bg-rd-black py-14 sm:py-20">
+    <section id="contato" className="scroll-mt-20 bg-rd-black py-14 sm:scroll-mt-24 sm:py-20">
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-20">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
           {/* ESQUERDA */}
@@ -79,7 +79,7 @@ export default function ContactSection() {
               acompanhar nossas novidades.
             </p>
 
-            <div className="mt-6 space-y-3">
+            <div className="mt-4 space-y-3">
               {channels.map((c) => (
                 <div
                   key={c.title}
