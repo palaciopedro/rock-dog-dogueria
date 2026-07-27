@@ -3,6 +3,8 @@
 import { useState, type FormEvent } from "react";
 import { useCart } from "@/context/CartContext";
 
+const sanitize = (v: string) => v.replace(/[\r\n]+/g, " ").trim();
+
 interface Errors {
   name?: string;
   phone?: string;
@@ -28,9 +30,9 @@ export default function CheckoutForm({ total, onBack }: { total: number; onBack:
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const name = String(data.get("name") || "").trim();
-    const phone = String(data.get("phone") || "").trim();
-    const address = String(data.get("address") || "").trim();
+    const name = sanitize(String(data.get("name") || "")).slice(0, 60);
+    const phone = sanitize(String(data.get("phone") || ""));
+    const address = sanitize(String(data.get("address") || "")).slice(0, 150);
 
     const nextErrors: Errors = {};
     if (name.length < 3) nextErrors.name = "Informe seu nome completo";
@@ -70,7 +72,7 @@ export default function CheckoutForm({ total, onBack }: { total: number; onBack:
       </button>
 
       <div className="space-y-4">
-        <Field label="Nome completo" name="name" error={errors.name} autoComplete="name" />
+        <Field label="Nome completo" name="name" error={errors.name} autoComplete="name" maxLength={60} />
         <Field
           label="WhatsApp"
           name="phone"
@@ -79,6 +81,7 @@ export default function CheckoutForm({ total, onBack }: { total: number; onBack:
           autoComplete="tel"
           placeholder="(44) 99999-9999"
           value={phone}
+          maxLength={15}
           onChange={(e) => setPhone(formatPhone(e.target.value))}
         />
 
@@ -106,7 +109,7 @@ export default function CheckoutForm({ total, onBack }: { total: number; onBack:
         </fieldset>
 
         {deliveryType === "entrega" && (
-          <Field label="Endereço de entrega" name="address" error={errors.address} autoComplete="street-address" />
+          <Field label="Endereço de entrega" name="address" error={errors.address} autoComplete="street-address" maxLength={150} />
         )}
 
         <fieldset>
