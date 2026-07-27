@@ -16,7 +16,7 @@ export default function AboutSection() {
 
             <div className="mt-5 space-y-4 font-body text-sm leading-relaxed text-rd-white/70 sm:text-base">
               <p>
-                A Rock Dog nasceu em 2022, idealizada por Angélica Bellini, com
+                A Rock Dog nasceu em 2022, idealizada por Angelica Bellini, com
                 uma proposta simples: unir duas grandes paixões em um só
                 lugar, rock e hot dog.
               </p>
@@ -48,6 +48,7 @@ export default function AboutSection() {
                 src="/foto-contact.png"
                 alt="Angelica Bellini, fundadora da Rock Dog Dogueria"
                 fill
+                quality={100}
                 className="object-cover grayscale-[15%]"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-rd-black/40 via-transparent to-transparent" />
