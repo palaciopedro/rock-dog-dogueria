@@ -49,9 +49,8 @@ export default function AboutSection() {
                 alt="Angelica Bellini, fundadora da Rock Dog Dogueria"
                 fill
                 quality={100}
-                sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 384px"
-                className="object-cover object-center grayscale-[15%]"
-            />
+                className="object-cover object-[center_35%] grayscale-[15%]"
+                />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-rd-black/40 via-transparent to-transparent" />
             </div>
 
