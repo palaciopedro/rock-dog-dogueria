@@ -43,13 +43,14 @@ export default function AboutSection() {
 
           {/* FOTO, com contorno exato */}
           <div className="relative mx-auto w-full max-w-[280px] sm:max-w-xs lg:max-w-sm">
-            <div className="relative aspect-[4/5] overflow-hidden border-4 border-rd-yellow">
+            <div className="overflow-hidden border-4 border-rd-yellow">
               <Image
                 src="/foto-contact.png"
                 alt="Angelica Bellini, fundadora da Rock Dog Dogueria"
-                fill
+                width={800}
+                height={1442}
                 quality={100}
-                className="object-cover object-[center_35%] grayscale-[15%]"
+                className="h-full w-full object-cover grayscale-[15%]"
                 />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-rd-black/40 via-transparent to-transparent" />
             </div>
