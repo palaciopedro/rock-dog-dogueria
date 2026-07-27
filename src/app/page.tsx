@@ -2,20 +2,22 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MenuSection from "@/components/MenuSection";
 import ContactSection from "@/components/ContactSection";
+import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <>
       <Navbar />
-      <main className="flex flex-1 flex-col">
+      <main>
         <Hero />
         <MenuSection />
         <ContactSection />
+        <AboutSection />
       </main>
       <Footer />
       <CartDrawer />
-    </div>
+    </>
   );
 }

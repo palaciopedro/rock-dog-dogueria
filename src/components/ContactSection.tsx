@@ -35,7 +35,7 @@ const badges = [
 
 function ReviewCard() {
   return (
-    <div className="relative border border-rd-yellow/20 bg-rd-white/[0.02] p-6">
+    <div className="relative border border-rd-yellow/20 bg-rd-white/[0.02] p-5">
       <div className="relative">
         <p className="text-lg text-rd-yellow" aria-hidden>
           ⭐⭐⭐⭐⭐
@@ -51,9 +51,9 @@ function ReviewCard() {
         </p>
         <p className="mt-3 font-body text-sm text-rd-white/50">— Cliente iFood</p>
 
-        <ul className="mt-5 space-y-2 border-t border-rd-white/10 pt-5">
+        <ul className="mt-4 space-y-1.5 border-t border-rd-white/10 pt-4">
           {badges.map((b) => (
-            <li key={b} className="flex items-center gap-2 font-body text-sm text-rd-white/70">
+            <li key={b} className="flex items-center gap-2 font-body text-xs text-rd-white/70 sm:text-sm">
               <span className="text-rd-yellow" aria-hidden>✔</span>
               {b}
             </li>
@@ -66,9 +66,9 @@ function ReviewCard() {
 
 export default function ContactSection() {
   return (
-    <section id="contato" className="scroll-mt-20 bg-rd-black py-14 sm:scroll-mt-24 sm:py-20">
+    <section id="contato" className="scroll-mt-20 bg-rd-black py-10 sm:scroll-mt-24 sm:py-14">
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-20">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-10">
           {/* ESQUERDA */}
           <div>
             <h2 className="font-display text-2xl uppercase text-rd-white sm:text-3xl">
@@ -79,11 +79,11 @@ export default function ContactSection() {
               acompanhar nossas novidades.
             </p>
 
-            <div className="mt-4 space-y-3">
+            <div className="mt-4 space-y-2.5">
               {channels.map((c) => (
                 <div
                   key={c.title}
-                  className="group flex flex-col gap-3 border border-rd-white/10 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-rd-yellow/60 hover:bg-rd-yellow/5 sm:flex-row sm:items-center sm:justify-between"
+                  className="group flex flex-col gap-2.5 border border-rd-white/10 p-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-rd-yellow/60 hover:bg-rd-yellow/5 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden>{c.icon}</span>
@@ -109,12 +109,12 @@ export default function ContactSection() {
             </div>
 
             {/* Avaliação — visível apenas no mobile, entre os cards e as informações */}
-            <div className="mt-6 lg:hidden">
+            <div className="mt-5 lg:hidden">
               <ReviewCard />
             </div>
 
             {/* Informações da loja, discretas */}
-            <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-2 border-t border-rd-white/10 pt-6 font-body text-xs text-rd-white/55 sm:grid-cols-2 sm:text-sm">
+            <dl className="mt-5 grid grid-cols-1 gap-x-8 gap-y-2 border-t border-rd-white/10 pt-5 font-body text-xs text-rd-white/55 sm:grid-cols-2 sm:text-sm">
               <div className="flex items-start gap-2">
                 <span aria-hidden>📍</span>
                 <span>Rua Dr Rufino Maciel, 700 – Centro, Mandaguari - PR</span>

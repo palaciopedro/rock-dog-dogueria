@@ -31,9 +31,7 @@ export default function Hero() {
 
           {/* Descrição — texto fixo */}
           <p className="max-w-md font-body text-base leading-relaxed text-rd-white/70 sm:text-lg">
-            Duas salsichas, bacon crocante, purê cremoso, pão prensado na chapa
-            e uma montanha de batata palha. Um hot dog feito para matar sua
-            fome de verdade.
+            Qualidade em cada detalhe. Dos ingredientes ao preparo, tudo é pensado para entregar um hot dog que surpreende no sabor e na experiência.
           </p>
 
           {/* Barra de benefícios, leve e sem caixas */}
@@ -63,7 +61,7 @@ export default function Hero() {
               Começar meu pedido
             </a>
             <a
-              href="#contato"
+              href="#sobre"
               className="border-2 border-rd-white/70 px-6 py-3 font-display text-base uppercase tracking-wide text-rd-white transition duration-300 hover:border-rd-white hover:bg-rd-white hover:text-rd-black sm:px-8 sm:py-4 sm:text-lg"
             >
               Conheça a Rock Dog
