@@ -16,6 +16,10 @@ export interface AddOn {
   price: number;
 }
 
+export interface SelectedAddOn extends AddOn {
+  qty: number;
+}
+
 export interface Drink {
   id: string;
   nome: string;
@@ -24,4 +28,5 @@ export interface Drink {
 
 export interface CartItem extends MenuItem {
   qty: number;
+  addOns: SelectedAddOn[];
 }

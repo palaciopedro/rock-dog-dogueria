@@ -3,8 +3,6 @@
 import { useState, type FormEvent } from "react";
 import { useCart } from "@/context/CartContext";
 
-const sanitize = (v: string) => v.replace(/[\r\n]+/g, " ").trim();
-
 interface Errors {
   name?: string;
   phone?: string;
@@ -30,9 +28,9 @@ export default function CheckoutForm({ total, onBack }: { total: number; onBack:
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const name = sanitize(String(data.get("name") || "")).slice(0, 60);
-    const phone = sanitize(String(data.get("phone") || ""));
-    const address = sanitize(String(data.get("address") || "")).slice(0, 150);
+    const name = String(data.get("name") || "").trim();
+    const phone = String(data.get("phone") || "").trim();
+    const address = String(data.get("address") || "").trim();
 
     const nextErrors: Errors = {};
     if (name.length < 3) nextErrors.name = "Informe seu nome completo";
@@ -44,12 +42,18 @@ export default function CheckoutForm({ total, onBack }: { total: number; onBack:
     const lines = [
       "Olá! Gostaria de fazer o seguinte pedido na *Rock Dog Dogueria*:",
       "",
-      ...items.map(
-        (item) =>
-          `• ${item.numero.toString().padStart(2, "0")} - ${item.nome} x${item.qty} - R$ ${(item.price * item.qty)
-            .toFixed(2)
-            .replace(".", ",")}`
-      ),
+      ...items.flatMap((item) => {
+        const addOnsTotal = item.addOns.reduce((sum, a) => sum + a.price * a.qty, 0);
+        const itemLine = `• ${item.numero.toString().padStart(2, "0")} - ${item.nome} x${item.qty} - R$ ${(
+          item.price * item.qty + addOnsTotal
+        )
+          .toFixed(2)
+          .replace(".", ",")}`;
+        const addOnLines = item.addOns.map(
+          (a) => `   + ${a.qty > 1 ? `${a.qty}x ` : ""}${a.nome} (R$ ${(a.price * a.qty).toFixed(2).replace(".", ",")})`
+        );
+        return [itemLine, ...addOnLines];
+      }),
       "",
       `*Total: R$ ${total.toFixed(2).replace(".", ",")}*`,
       "",
@@ -72,7 +76,7 @@ export default function CheckoutForm({ total, onBack }: { total: number; onBack:
       </button>
 
       <div className="space-y-4">
-        <Field label="Nome completo" name="name" error={errors.name} autoComplete="name" maxLength={60} />
+        <Field label="Nome completo" name="name" error={errors.name} autoComplete="name" />
         <Field
           label="WhatsApp"
           name="phone"
@@ -81,7 +85,6 @@ export default function CheckoutForm({ total, onBack }: { total: number; onBack:
           autoComplete="tel"
           placeholder="(44) 99999-9999"
           value={phone}
-          maxLength={15}
           onChange={(e) => setPhone(formatPhone(e.target.value))}
         />
 
@@ -109,7 +112,7 @@ export default function CheckoutForm({ total, onBack }: { total: number; onBack:
         </fieldset>
 
         {deliveryType === "entrega" && (
-          <Field label="Endereço de entrega" name="address" error={errors.address} autoComplete="street-address" maxLength={150} />
+          <Field label="Endereço de entrega" name="address" error={errors.address} autoComplete="street-address" />
         )}
 
         <fieldset>

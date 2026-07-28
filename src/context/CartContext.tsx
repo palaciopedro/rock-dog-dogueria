@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useMemo, useState } from "react";
-import type { CartItem, MenuItem } from "@/types/menu";
+import type { AddOn, CartItem, MenuItem, SelectedAddOn } from "@/types/menu";
 
 type Step = "cart" | "checkout" | "confirmed";
 
@@ -14,6 +14,7 @@ interface CartContextValue {
   addItem: (item: MenuItem) => void;
   removeItem: (id: string) => void;
   updateQty: (id: string, qty: number) => void;
+  updateAddOnQty: (id: string, addOn: AddOn, qty: number) => void;
   openCart: () => void;
   closeCart: () => void;
   goToCheckout: () => void;
@@ -23,6 +24,11 @@ interface CartContextValue {
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
+
+function lineTotal(item: CartItem) {
+  const addOnsTotal = item.addOns.reduce((sum, a) => sum + a.price * a.qty, 0);
+  return item.price * item.qty + addOnsTotal;
+}
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
@@ -35,7 +41,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (existing) {
         return prev.map((i) => (i.id === item.id ? { ...i, qty: i.qty + 1 } : i));
       }
-      return [...prev, { ...item, qty: 1 }];
+      return [...prev, { ...item, qty: 1, addOns: [] }];
     });
     setIsOpen(true);
   };
@@ -47,7 +53,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems((prev) => prev.map((i) => (i.id === id ? { ...i, qty } : i)));
   };
 
-  const total = useMemo(() => items.reduce((sum, i) => sum + i.price * i.qty, 0), [items]);
+  const updateAddOnQty = (id: string, addOn: AddOn, qty: number) => {
+    setItems((prev) =>
+      prev.map((i) => {
+        if (i.id !== id) return i;
+        const withoutAddOn = i.addOns.filter((a) => a.id !== addOn.id);
+        if (qty <= 0) return { ...i, addOns: withoutAddOn };
+        const next: SelectedAddOn = { ...addOn, qty };
+        return { ...i, addOns: [...withoutAddOn, next] };
+      })
+    );
+  };
+
+  const total = useMemo(() => items.reduce((sum, i) => sum + lineTotal(i), 0), [items]);
   const count = useMemo(() => items.reduce((sum, i) => sum + i.qty, 0), [items]);
 
   const value: CartContextValue = {
@@ -59,6 +77,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     addItem,
     removeItem,
     updateQty,
+    updateAddOnQty,
     openCart: () => setIsOpen(true),
     closeCart: () => setIsOpen(false),
     goToCheckout: () => setStep("checkout"),
