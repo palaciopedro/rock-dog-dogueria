@@ -10,19 +10,27 @@ export default function CartDrawer() {
     useCart();
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  if (!isOpen) return null;
-
   const itemLineTotal = (item: (typeof items)[number]) =>
     item.price * item.qty + item.addOns.reduce((sum, a) => sum + a.price * a.qty, 0);
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
+    <div
+      className={`fixed inset-0 z-50 flex justify-end transition-opacity duration-300 ${
+        isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+      }`}
+      aria-hidden={!isOpen}
+    >
       <button
         aria-label="Fechar carrinho"
         onClick={closeCart}
+        tabIndex={isOpen ? 0 : -1}
         className="absolute inset-0 bg-black/60"
       />
-      <aside className="relative flex h-full w-full max-w-md flex-col bg-rd-black text-rd-white shadow-2xl">
+      <aside
+        className={`relative flex h-full w-full max-w-md flex-col bg-rd-black text-rd-white shadow-2xl transition-transform duration-300 ease-out ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
         <header className="flex items-center justify-between border-b border-rd-yellow/20 px-4 py-4 sm:px-6 sm:py-5">
           <h2 className="font-display text-xl uppercase text-rd-yellow sm:text-2xl">
             {step === "cart" && "Seu carrinho"}
@@ -88,7 +96,7 @@ export default function CartDrawer() {
                             onClick={() => setExpandedId(isExpanded ? null : item.id)}
                             className="font-body text-xs font-semibold uppercase tracking-wide text-rd-yellow hover:underline"
                           >
-                            {isExpanded ? "Fechar adicionais" : "+ Adicionais"}
+                            {isExpanded ? "Fechar adicionais" : item.addOns.length > 0 ? "Editar adicionais" : "+ Adicionar adicionais"}
                           </button>
                           <span className="font-body text-sm text-rd-white/60">
                             R$ {itemLineTotal(item).toFixed(2).replace(".", ",")}
